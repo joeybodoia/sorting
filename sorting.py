@@ -12,6 +12,7 @@ if cmp(a, b) returns  0, then a == b.
 '''
 
 import random
+import copy
 
 
 def cmp_standard(a, b):
@@ -87,7 +88,7 @@ def _merged(xs, ys, cmp=cmp_standard):
     left_xs = 0
     left_ys = 0
     return_list = []
-    while(left_xs <= len(xs) - 1 and left_ys <= len(ys) - 1):
+    while (left_xs <= len(xs) - 1 and left_ys <= len(ys) - 1):
         if cmp(xs[left_xs], ys[left_ys]) == -1:
             return_list.append(xs[left_xs])
             left_xs += 1
@@ -125,13 +126,14 @@ def merge_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    xs_copy = copy.deepcopy(xs)
     if len(xs) <= 1:
-        return xs
+        return xs_copy
     mid = len(xs) // 2
-    left = merge_sorted(xs[:mid])
-    right = merge_sorted(xs[mid:])
+    left = merge_sorted(xs_copy[:mid], cmp)
+    right = merge_sorted(xs_copy[mid:], cmp)
 
-    return _merged(left, right)
+    return _merged(left, right, cmp)
 
 
 def quick_sorted(xs, cmp=cmp_standard):
@@ -158,24 +160,25 @@ def quick_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    xs_copy = copy.deepcopy(xs)
     if len(xs) <= 1:
-        return xs
+        return xs_copy
     p = random.randint(0, len(xs) - 1)
     left = []
     equal = []
     right = []
-    for i in range(len(xs)):
+    for i in range(len(xs_copy)):
         if cmp(xs[i], xs[p]) == -1:
-            left.append(xs[i])
+            left.append(xs_copy[i])
         elif cmp(xs[i], xs[p]) == 1:
-            right.append(xs[i])
+            right.append(xs_copy[i])
         else:
-            equal.append(xs[i])
-    left_sort = quick_sorted(left)
-    equal_sort = quick_sorted(equal)
-    right_sort = quick_sorted(right)
+            equal.append(xs_copy[i])
 
-    return left_sort + equal_sort + right_sort
+    left_sort = quick_sorted(left, cmp)
+    right_sort = quick_sorted(right, cmp)
+
+    return left_sort + equal + right_sort
 
 
 def quick_sort(xs, cmp=cmp_standard):
