@@ -188,15 +188,15 @@ def swap(arr, idx1, idx2):
     return arr
 
 
-def partition(A, lo, hi, cmp=cmp_standard):
-    pivot = A[hi]
+def partition(a, lo, hi, cmp=cmp_standard):
+    pivot = a[hi]
     i = lo
 
-    for j in range(lo, len(A)):
-        if cmp(A[j], pivot) == -1:
-            swap(A, i, j)
+    for j in range(lo, len(a)):
+        if cmp(a[j], pivot) == -1:
+            swap(a, i, j)
             i += 1
-    swap(A, i, hi)
+    swap(a, i, hi)
     return i
 
 
@@ -229,8 +229,8 @@ def quick_sort(xs, cmp=cmp_standard):
     def sort(xs, lo, hi, cmp=cmp):
         if lo < hi:
             p = partition(xs, lo, hi, cmp)
-            sort(xs, lo, p-1, cmp)
-            sort(xs, p+1, hi, cmp)
+            sort(xs, lo, p - 1, cmp)
+            sort(xs, p + 1, hi, cmp)
 
         return xs
-    return sort(xs, 0, len(xs)-1, cmp)
+    return sort(xs, 0, len(xs) - 1, cmp)
