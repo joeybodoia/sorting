@@ -219,7 +219,8 @@ def quick_sort(xs, cmp=cmp_standard):
     [stable sort](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability),
     but this is typically inconsequential.
 
-    Follow the pseudocode of the Lomuto partition scheme given on wikipedia
+    Follow the pseudocode of the
+    Lomuto partition scheme given on wikipedia
     (https://en.wikipedia.org/wiki/Quicksort#Algorithm)
     to implement quick_sort as an in-place algorithm.
     You should directly modify the input xs variable instead of returning
